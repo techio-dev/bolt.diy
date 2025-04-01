@@ -1,0 +1,20 @@
+workspace:
+  base: /app
+  path: bolt
+when:
+  - event: push
+    branch: main
+  - event: manual
+
+steps:
+  - name: publish
+    image: woodpeckerci/plugin-docker-buildx
+    settings:
+      registry: ghcr.io
+      repo: techio-dev/bolt.diy
+      dockerfile: Dockerfile
+      cache: true
+      username:
+        from_secret: github-username
+      password:
+        from_secret: github-token
